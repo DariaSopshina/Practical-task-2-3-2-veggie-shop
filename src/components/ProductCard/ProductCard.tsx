@@ -31,7 +31,6 @@ export function ProductCard({ product, onAdd }: Props) {
         display: 'flex',
         flexDirection: 'column',
         gap: 16,
-        width: 302,
         height: 414,
         boxSizing: 'border-box',
         overflow: 'hidden',
