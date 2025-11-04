@@ -1,7 +1,9 @@
-import { Center, Loader, Alert, SimpleGrid } from '@mantine/core';
+import { Alert, SimpleGrid, Skeleton, Stack } from '@mantine/core';
 import { ProductCard } from '../ProductCard/ProductCard';
 import { useProducts } from '../../hooks/useProducts';
 import { useCart } from '../../context/CartContext';
+
+const SKELETONS = Array.from({ length: 8 });
 
 export function ProductList() {
   const { products, loading, error } = useProducts();
@@ -9,9 +11,16 @@ export function ProductList() {
 
   if (loading) {
     return (
-      <Center>
-        <Loader role="progressbar" aria-label="loading" />
-      </Center>
+      <SimpleGrid cols={4} spacing="md">
+        {SKELETONS.map((_, i) => (
+          <Stack key={i} gap={16}>
+            <Skeleton height={300} radius={12} />
+            <Skeleton height={24} />
+            <Skeleton height={24} />
+            <Skeleton height={44} radius="md" />
+          </Stack>
+        ))}
+      </SimpleGrid>
     );
   }
 
@@ -24,14 +33,12 @@ export function ProductList() {
   }
 
   return (
-    <SimpleGrid cols={4}>
+    <SimpleGrid cols={4} spacing="md">
       {products.map((p) => (
         <ProductCard
           key={p.id}
           product={p}
-          onAdd={(product, qty) => {
-            addItem(product, qty);
-          }}
+          onAdd={(product, qty) => addItem(product, qty)}
         />
       ))}
     </SimpleGrid>

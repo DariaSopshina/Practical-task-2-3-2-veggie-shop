@@ -11,42 +11,11 @@ export function HeaderBar() {
   return (
     <Group h="100%" px="md" justify="space-between" align="center">
       <Group gap="xs" align="center">
-        <Title
-          order={3}
-          style={{
-            fontFamily: 'Inter, system-ui, sans-serif',
-            fontWeight: 600,
-            fontSize: 22,
-            lineHeight: '22px',
-            color: '#000',
-            opacity: 0.9,
-          }}
-        >
+        <Title order={3} className="header__title">
           Vegetable
         </Title>
 
-        <Badge
-          variant="filled"
-          styles={{
-            root: {
-              background: '#54B46A',
-              width: 80,
-              height: 33,
-              borderRadius: 21,
-              padding: 0,
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            },
-            label: {
-              fontFamily: 'Inter, system-ui, sans-serif',
-              fontWeight: 500,
-              fontSize: 20,
-              lineHeight: '20px',
-              color: '#fff',
-            },
-          }}
-        >
+        <Badge variant="filled" className="badge--shop">
           SHOP
         </Badge>
       </Group>
@@ -64,57 +33,20 @@ export function HeaderBar() {
             w={144}
             h={44}
             variant="filled"
+            className="cartButton"
             leftSection={
               totalCount > 0 ? (
-                <Badge
-                  styles={{
-                    root: {
-                      width: 24,
-                      height: 24,
-                      borderRadius: 999,
-                      background: '#FFFFFF',
-                      color: '#54B46A',
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      padding: 0,
-                    },
-                    label: { fontWeight: 700 },
-                  }}
-                >
-                  {totalCount}
-                </Badge>
+                <span className="cartButton__counter">{totalCount}</span>
               ) : null
             }
             rightSection={<IconShoppingCart size={16} />}
-            styles={{
-              root: { background: '#54B46A' },
-              label: {
-                fontFamily: 'Inter, system-ui, sans-serif',
-                fontWeight: 600,
-                fontSize: 16,
-                lineHeight: '24px',
-                color: '#FFFFFF',
-              },
-            }}
             onClick={() => setOpened((v) => !v)}
           >
             Cart
           </Button>
         </Popover.Target>
 
-        <Popover.Dropdown
-          style={{
-            width: 444,
-            height: 268,
-            borderRadius: 16,
-            background: '#FFFFFF',
-            padding: 24,
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 12,
-          }}
-        >
+        <Popover.Dropdown className="popover__dropdown">
           <CartMenu
             items={items}
             totalPrice={totalPrice}

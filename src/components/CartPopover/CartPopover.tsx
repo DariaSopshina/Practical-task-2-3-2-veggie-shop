@@ -20,7 +20,7 @@ type Props = Pick<
 export function CartMenu({ items, totalPrice, addOne, removeOne }: Props) {
   if (items.length === 0) {
     return (
-      <Stack align="center" justify="center" style={{ flex: 1 }} gap={8}>
+      <Stack align="center" justify="center" gap={8}>
         <Image src={cartEmpty} alt="Your cart is empty" w={180} fit="contain" />
         <Text c="dimmed">Your cart is empty!</Text>
       </Stack>
@@ -29,7 +29,7 @@ export function CartMenu({ items, totalPrice, addOne, removeOne }: Props) {
 
   return (
     <>
-      <ScrollArea style={{ flex: 1 }}>
+      <ScrollArea className="cartMenu__popover">
         <Stack gap={12}>
           {items.map(({ product, qty }, idx) => (
             <Box key={product.id}>
@@ -58,24 +58,20 @@ export function CartMenu({ items, totalPrice, addOne, removeOne }: Props) {
                 <Group gap={6} align="center">
                   <ActionIcon
                     radius={8}
-                    styles={{
-                      root: { width: 30, height: 30, background: '#DEE2E6' },
-                    }}
+                    className="cartMenu__btn"
                     onClick={() => removeOne(product.id)}
                     aria-label="Decrease quantity"
                   >
                     <IconMinus size={14} color="#212529" />
                   </ActionIcon>
 
-                  <Text w={18} ta="center" fw={600} aria-live="polite">
+                  <Text className="cartMenu__qty" aria-live="polite">
                     {qty}
                   </Text>
 
                   <ActionIcon
                     radius={8}
-                    styles={{
-                      root: { width: 30, height: 30, background: '#DEE2E6' },
-                    }}
+                    className="cartMenu__btn"
                     onClick={() => addOne(product.id)}
                     aria-label="Increase quantity"
                   >

@@ -31,24 +31,31 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   function removeOne(productId: number) {
     const idx = findIndex(productId);
-
     if (idx === -1) return;
 
     const copy = [...items];
-    const next = Math.max(1, copy[idx].qty - 1);
-    copy[idx] = { product: copy[idx].product, qty: next };
-    setItems(copy);
+    const next = copy[idx].qty - 1;
+
+    if (next <= 0) {
+      setItems(copy.filter((_, i) => i !== idx));
+    } else {
+      copy[idx] = { product: copy[idx].product, qty: next };
+      setItems(copy);
+    }
   }
 
   function setQty(productId: number, qty: number) {
     const idx = findIndex(productId);
-
     if (idx === -1) return;
 
-    const copy = [...items];
-    const safe = Math.max(1, Number(qty) || 1);
-    copy[idx] = { product: copy[idx].product, qty: safe };
-    setItems(copy);
+    const safe = Math.max(0, Number(qty) || 0);
+    if (safe === 0) {
+      setItems(items.filter((it) => it.product.id !== productId));
+    } else {
+      const copy = [...items];
+      copy[idx] = { product: copy[idx].product, qty: safe };
+      setItems(copy);
+    }
   }
 
   function remove(productId: number) {
